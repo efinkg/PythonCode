@@ -3,6 +3,8 @@ import threading
 app = Flask(__name__)
 from coffeetest import CoffeeMakerSingleton
 coffee_maker=CoffeeMakerSingleton()
+from EverythingOff import killPins
+all_off=killPins()
 from functools import wraps
 from flask import request, Response
 
@@ -34,7 +36,13 @@ def index():
 def start_coffee():
     coffee_thread = threading.Thread(target=coffee_maker.makeCoffee)
     coffee_thread.start()
-    return "started coffee"
+    return "Started Coffee"
+
+@app.route("/killall")
+def killall():
+    off_thread = threading.Thread(target=all_off.turnOff)
+    off_thread.start()
+    return 'Its dead, Jim'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
