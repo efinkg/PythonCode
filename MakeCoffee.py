@@ -1,7 +1,7 @@
 from flask import Flask
 app = Flask(__name__)
 from coffeetest import CoffeeMakerSingleton
-coffee_maker=coffeetest.makeCoffee()
+coffee_maker=CoffeeMakerSingleton()
 
 @app.route('/')
 def index():
