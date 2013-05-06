@@ -71,7 +71,3 @@ class CoffeeMakerSingleton:
         SendEmail()
         time.sleep(20)
         print "Your Coffee Has Been Brewing for Three Minutes\nYour Coffee is Done Brewing, Please Collect"
-
-maker = CoffeeMakerSingleton()
-maker.makeCoffee()
-
