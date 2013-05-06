@@ -1,4 +1,5 @@
 from flask import Flask
+import threading
 app = Flask(__name__)
 from coffeetime import CoffeeMakerSingleton
 coffee_maker=CoffeeMakerSingleton()
@@ -9,7 +10,9 @@ def index():
 
 @app.route("/coffee")
 def start_coffee():
-    return coffee_maker.makeCoffee()
+    coffee_thread = threading.Thread(target=coffee_maker.makeCoffee)
+    coffee_thread.start()
+    return "started coffee"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
