@@ -4,7 +4,6 @@ app = Flask(__name__)
 from coffeetimethreading import CoffeeMakerSingleton
 from functools import wraps
 from flask import request, Response
-
 coffee_maker = CoffeeMakerSingleton()
 
 def check_auth(username, password):
