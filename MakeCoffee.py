@@ -41,6 +41,7 @@ def start_coffee():
     return "Started Coffee"
 
 @app.route("/killall")
+@requires_auth
 def killall():
     coffee_maker.force_stop()
     print 'done force stopping'

@@ -50,16 +50,14 @@ class CoffeeMakerSingleton:
     def pins_off(self):
         for pin in [KETTLE, SOLENOID, GRINDER, PUMP]:
             GPIO.output(pin, GPIO.LOW)
-        print 'pins low'
+        print 'Pins Low'
 
     def end_timers(self):
-        print 'threads'
+        print 'Stop Running Stuff'
         for t in threading.enumerate():
             print t
             if isinstance(t, threading._Timer):
-                print 'canceling'
                 t.cancel()
-                print 'joining'
                 t.join()
 
     def force_stop(self):
