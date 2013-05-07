@@ -42,7 +42,7 @@ class CoffeeMakerSingleton:
     def makeCoffee(self):
         #times in comments are relative to WHEN THIS METHOD IS CALLED
         self.on_after_wait(0, 42, PUMP) #imediately pump for 42 seconds
-        self.on_after_wait(0, 18, GRINDER) #erm, any reason you do this after heating the water? seems like a waste
+        self.on_after_wait(19, 18, GRINDER) #erm, any reason you do this after heating the water? seems like a waste
                                            #I mean, It's not on a critical path, so we can start it at any point before
                                            #18 seconds before the water is hot
         threading.Timer(19, self.is_it_hot).start() #start heating after 19 seconds
