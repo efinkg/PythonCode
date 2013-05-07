@@ -1,12 +1,13 @@
 from flask import Flask
 import threading
 app = Flask(__name__)
-from coffeetest import CoffeeMakerSingleton
-coffee_maker=CoffeeMakerSingleton()
+from coffeetimethreading import CoffeeMakerSingleton
 from EverythingOff import killPins
 all_off=killPins()
 from functools import wraps
 from flask import request, Response
+
+coffee_maker = CoffeeMakerSingleton()
 
 def check_auth(username, password):
      return username == 'admin' and password == 'secret'
@@ -34,14 +35,12 @@ def index():
 @app.route("/coffee")
 @requires_auth
 def start_coffee():
-    coffee_thread = threading.Thread(target=coffee_maker.makeCoffee)
-    coffee_thread.start()
+    coffee_maker.makeCoffee()
     return "Started Coffee"
 
 @app.route("/killall")
 def killall():
-    off_thread = threading.Thread(target=all_off.turnOff)
-    off_thread.start()
+    coffee_maker.force_stop()
     return 'Its dead, Jim'
 
 if __name__ == '__main__':
