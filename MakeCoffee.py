@@ -59,6 +59,7 @@ def start_coffee():
     coffee_maker.makeCoffee()
 
 @app.route("/killall", methods=['GET', 'POST'])
+@requires_auth
 def killall():
     coffee_maker.force_stop()
     print 'done force stopping'
