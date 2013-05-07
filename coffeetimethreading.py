@@ -27,12 +27,23 @@ class CoffeeMakerSingleton:
         GPIO.output(gpio, GPIO.HIGH)
         time.sleep(seconds)
         GPIO.output(gpio, GPIO.LOW)
+        
+    def is_it_hot(self):
+        GPIO.output(KETTLE, GPIO.HIGH)
+        TEMP=read_temp()
+        while TEMP < 65:
+           print TEMP
+           time.sleep(10)
+           TEMP=read_temp()
+        GPIO.output(KETTLE, GPIO.LOW)
+        
 
     def init_threads:
-        preFill = threading.Timer(PUMP, 19)
-        fillHeating = threading.Timer(PUMP, 23)
-        heatingFill = threading.Timer(KETTLE, 23)
-        pourWater = threading.Timer(SOLENOID, 30)
+        self.preFill = threading.Timer(PUMP, 19)
+        self.fillHeating = threading.Timer(PUMP, 23)
+        self.heatingFill = threading.Timer(KETTLE, 23)
+        self.pourWater = threading.Timer(SOLENOID, 30)
+        self.kettleHot = is_it_hot()
     
     def makeCoffee(self):
         print 'Pumping'
@@ -41,11 +52,7 @@ class CoffeeMakerSingleton:
         fillHeating.start()
         heatingFill.start()
         print 'Done pumping'
-        TEMP = read_temp()
-        while TEMP < 65:
-           print TEMP
-           time.sleep(10)
-           TEMP=read_temp()
+        kettleHot.start()
         print 'Done kettling'
         GPIO.output(KETTLE, GPIO.LOW)
         print 'Grinding'
