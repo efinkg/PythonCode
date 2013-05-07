@@ -12,7 +12,7 @@ class CoffeeMakerSingleton:
     _instance = None
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(ClimateControlSingleton, cls).__new__(cls, *args, **kwargs)
+            cls._instance = super(CoffeeMakerSingleton, cls).__new__(cls, *args, **kwargs)
             return cls._instance
 
     def __init__(self):
@@ -23,69 +23,40 @@ class CoffeeMakerSingleton:
         GPIO.setup(GRINDER, GPIO.OUT)
         GPIO.setup(PUMP, GPIO.OUT)
 
-    def on_for_seconds(self, gpio, seconds):
-        GPIO.output(gpio, GPIO.HIGH)
-        time.sleep(seconds)
-        GPIO.output(gpio, GPIO.LOW)
-        
+    def on_after_wait(self, wait, durration, gpio):
+        threading.Timer(wait, GPIO.output, [gpio, GPIO.HIGH]).start()
+        threading.Timer(wait + durration, GPIO.output, [gpio, GPIO.LOW]).start()
+
     def is_it_hot(self):
         GPIO.output(KETTLE, GPIO.HIGH)
         TEMP=read_temp()
         if TEMP < 65:
            print TEMP
-           threading.Timer(10, is_it_hot)
+           threading.Timer(10, self.is_it_hot).start()
         else:
            GPIO.output(KETTLE, GPIO.LOW)
-    def grinding_coffee(self):
-        t=0
-        GPIO.output(GRINDER, GPIO.HIGH)
-        while t < 18:
-           TEMP=read_temp()
-           if TEMP < 65:
-               print TEMP
-               GPIO.output(KETTLE, GPIO.HIGH)
-           else:
-               print TEMP
-               GPIO.output(KETTLE, GPIO.LOW)
-           threading.Timer(1, grinding_coffee)
-           t+=1
-        GPIO.output(GRINDER, GPIO.LOW)
+           self.on_after_wait(0, 30, SOLENOID)
+           threading.Timer(180, SendEmail).start()
 
-    def brewing(self):
-        print 'Solenoid off\nCoffee is brewing'
-        threading.Timer(60, brewing)
-        print "Your Coffee Has Been Brewing for One Minute"
-        threading.Timer(60, brewing)
-        print "Your Coffee Has Been Brewing for Two Minutes"
-        threading.Timer(40, brewing)
-        SendEmail()
-        threading.Timer(20, brewing)
-        print "Your Coffee Has Been Brewing for Three Minutes\nYour Coffee is Done Brewing, Please Collect"
-        
-
-    def init_threads:
-        self.preFill = threading.Timer(PUMP, 19)
-        self.fillHeating = threading.Timer(PUMP, 23)
-        self.heatingFill = threading.Timer(KETTLE, 23)
-        self.pourWater = threading.Timer(SOLENOID, 30)
-        self.kettleHot = is_it_hot()
-        self.grindingBeans = grinding_coffee()
-        self.coffeetime = brewing()
-    
     def makeCoffee(self):
-        print 'Pumping'
-        preFill.start()
-        print 'Kettling'
-        fillHeating.start()
-        heatingFill.start()
-        print 'Done pumping'
-        kettleHot.start()
-        print 'Done kettling'
-        print 'Grinding'
-        self.grindingBeans()
-        print 'Done grinding\nSolenoid on'
-        pourWater.start()
-        print 'Solenoid off"
-        coffeetime.start()
-        
-        
+        #times in comments are relative to WHEN THIS METHOD IS CALLED
+        self.on_after_wait(0, 42, PUMP) #imediately pump for 42 seconds
+        self.on_after_wait(0, 18, GRINDER) #erm, any reason you do this after heating the water? seems like a waste
+                                           #I mean, It's not on a critical path, so we can start it at any point before
+                                           #18 seconds before the water is hot
+        threading.Timer(19, self.is_it_hot).start() #start heating after 19 seconds
+
+    def pins_off(self):
+        for pin in [KETTLE, SOLENOID, GRINDER, PUMP]:
+            GPIO.output(pin, GPIO.LOW)
+        print 'pins low'
+
+    def end_timers(self):
+        for t in threading.enumerate():
+            if isinstance(t, threading._Timer):
+                t.cancel()
+                t.join()
+
+    def force_stop(self):
+        self.end_timers()
+        self.pins_off()
