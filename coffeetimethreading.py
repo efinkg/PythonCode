@@ -52,9 +52,13 @@ class CoffeeMakerSingleton:
         print 'pins low'
 
     def end_timers(self):
+        print 'ending threads' 
         for t in threading.enumerate():
+            print t
             if isinstance(t, threading._Timer):
+                print 'canceling'
                 t.cancel()
+                print 'joining'
                 t.join()
 
     def force_stop(self):

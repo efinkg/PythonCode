@@ -2,8 +2,6 @@ from flask import Flask
 import threading
 app = Flask(__name__)
 from coffeetimethreading import CoffeeMakerSingleton
-from EverythingOff import killPins
-all_off=killPins()
 from functools import wraps
 from flask import request, Response
 

@@ -1,1 +1,0 @@
-from coffeetimenotemp import CoffeeMakerSingleton
