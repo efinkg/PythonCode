@@ -52,7 +52,7 @@ class CoffeeMakerSingleton:
         print 'pins low'
 
     def end_timers(self):
-        print 'ending threads' 
+        print 'threads: %d' % len(threading.enumerate())
         for t in threading.enumerate():
             print t
             if isinstance(t, threading._Timer):
