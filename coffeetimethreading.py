@@ -70,6 +70,7 @@ class CoffeeMakerSingleton:
         self.pourWater = threading.Timer(SOLENOID, 30)
         self.kettleHot = is_it_hot()
         self.grindingBeans = grinding_coffee()
+        self.coffeetime = brewing()
     
     def makeCoffee(self):
         print 'Pumping'
@@ -84,5 +85,7 @@ class CoffeeMakerSingleton:
         self.grindingBeans()
         print 'Done grinding\nSolenoid on'
         pourWater.start()
+        print 'Solenoid off"
+        coffeetime.start()
         
         
