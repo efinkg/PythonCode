@@ -53,13 +53,13 @@ class CoffeeMakerSingleton:
 
     def end_timers(self):
         print 'threads'
-        '''for t in threading.enumerate():
+        for t in threading.enumerate():
             print t
             if isinstance(t, threading._Timer):
                 print 'canceling'
                 t.cancel()
                 print 'joining'
-                t.join()'''
+                t.join()
 
     def force_stop(self):
         self.end_timers()
