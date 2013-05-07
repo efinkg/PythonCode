@@ -39,6 +39,7 @@ def start_coffee():
 @app.route("/killall")
 def killall():
     coffee_maker.force_stop()
+    print 'done force stopping'
     return 'Its dead, Jim'
 
 if __name__ == '__main__':
