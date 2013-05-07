@@ -1,10 +1,13 @@
 from flask import Flask
 import threading
-app = Flask(__name__)
 from coffeetimethreading import CoffeeMakerSingleton
 from functools import wraps
 from flask import request, Response
 
+
+app = Flask(__name__)
+app.secret_key = os.urandom(24)
+app.debug = True
 coffee_maker = CoffeeMakerSingleton()
 
 def check_auth(username, password):
