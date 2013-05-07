@@ -31,11 +31,36 @@ class CoffeeMakerSingleton:
     def is_it_hot(self):
         GPIO.output(KETTLE, GPIO.HIGH)
         TEMP=read_temp()
-        while TEMP < 65:
+        if TEMP < 65:
            print TEMP
-           time.sleep(10)
+           threading.Timer(10, is_it_hot)
+        else:
+           GPIO.output(KETTLE, GPIO.LOW)
+    def grinding_coffee(self):
+        t=0
+        GPIO.output(GRINDER, GPIO.HIGH)
+        while t < 18:
            TEMP=read_temp()
-        GPIO.output(KETTLE, GPIO.LOW)
+           if TEMP < 65:
+               print TEMP
+               GPIO.output(KETTLE, GPIO.HIGH)
+           else:
+               print TEMP
+               GPIO.output(KETTLE, GPIO.LOW)
+           threading.Timer(1, grinding_coffee)
+           t+=1
+        GPIO.output(GRINDER, GPIO.LOW)
+
+    def brewing(self):
+        print 'Solenoid off\nCoffee is brewing'
+        threading.Timer(60, brewing)
+        print "Your Coffee Has Been Brewing for One Minute"
+        threading.Timer(60, brewing)
+        print "Your Coffee Has Been Brewing for Two Minutes"
+        threading.Timer(40, brewing)
+        SendEmail()
+        threading.Timer(20, brewing)
+        print "Your Coffee Has Been Brewing for Three Minutes\nYour Coffee is Done Brewing, Please Collect"
         
 
     def init_threads:
@@ -44,6 +69,7 @@ class CoffeeMakerSingleton:
         self.heatingFill = threading.Timer(KETTLE, 23)
         self.pourWater = threading.Timer(SOLENOID, 30)
         self.kettleHot = is_it_hot()
+        self.grindingBeans = grinding_coffee()
     
     def makeCoffee(self):
         print 'Pumping'
@@ -54,29 +80,9 @@ class CoffeeMakerSingleton:
         print 'Done pumping'
         kettleHot.start()
         print 'Done kettling'
-        GPIO.output(KETTLE, GPIO.LOW)
         print 'Grinding'
-        GPIO.output(GRINDER, GPIO.HIGH)
-        t=0
-        while t < 18:
-           TEMP=read_temp()
-           if TEMP < 65:
-               print TEMP
-               GPIO.output(KETTLE, GPIO.HIGH)
-           else:
-               print TEMP
-               GPIO.output(KETTLE, GPIO.LOW)
-           time.sleep(1)
-           t+=1
-        GPIO.output(GRINDER, GPIO.LOW)
+        self.grindingBeans()
         print 'Done grinding\nSolenoid on'
         pourWater.start()
-        print 'Solenoid off\nCoffee is brewing'
-        time.sleep(60)
-        print "Your Coffee Has Been Brewing for One Minute"
-        time.sleep(60)
-        print "Your Coffee Has Been Brewing for Two Minutes"
-        time.sleep(40)
-        SendEmail()
-        time.sleep(20)
-        print "Your Coffee Has Been Brewing for Three Minutes\nYour Coffee is Done Brewing, Please Collect"
+        
+        
