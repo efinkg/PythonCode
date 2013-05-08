@@ -57,7 +57,7 @@ html = """
     I want to make <br>&nbsp;<input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16">&nbsp;ounces of coffee<br>
     <input id="coffeebutton" value="Start Coffee" type="submit">
     <input id="stopbutton" value="Stop Coffee" type="submit">
-<font>
+</font>
 </body>
 </html>
 """
