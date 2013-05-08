@@ -20,6 +20,14 @@ html = """
                        width: 250px;
                        height: 50px;
                }
+               input#coffeeoz {
+                       width: 250px;
+                       height: 50px;
+               }
+               input#coffeebutton {
+                       width: 250px;
+                       height: 50px;
+               }
        </style>
 <title>Coffee controller</title>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
