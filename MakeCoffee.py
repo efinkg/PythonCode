@@ -27,11 +27,12 @@ html = """
                        height: 100px;
                        font-size: 28px;
                        color: #008000;
-               input#coffeeoz {
-                       width: 250px;
-                       height: 100px;
-                       font-size: 28px;
                }
+               input#coffeeoz {
+                       width: 80px;
+                       height: 60px;
+                       font-size: 28px;
+                       text-align: center;
                }
        </style>
 <title>Coffee controller</title>
