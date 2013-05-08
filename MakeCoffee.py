@@ -19,14 +19,19 @@ html = """
                input#stopbutton {
                        width: 250px;
                        height: 100px;
+                       font-size: 18px:
+                       color: #FF0000
                }
                input#coffeeoz {
                        width: 250px;
                        height: 100px;
+                       font-size: 18px:
                }
                input#coffeebutton {
                        width: 250px;
                        height: 100px;
+                       font-size: 18px:
+                       color: #008000
                }
        </style>
 <title>Coffee controller</title>
