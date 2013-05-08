@@ -59,6 +59,7 @@ def index():
 @requires_auth
 def start_coffee():
     coffee_maker.makeCoffee(ozCoffee)
+    print 'I am making you' ozCoffee 'ounces of coffee.'
 
 @app.route("/killall", methods=['GET', 'POST'])
 @requires_auth
