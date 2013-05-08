@@ -29,7 +29,7 @@ html = """
                        color: #008000;
                input#coffeeoz {
                        width: 100px;
-                       height: 40px;
+                       height: 10px;
                        font-size: 28px;
                }
                }
