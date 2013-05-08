@@ -58,7 +58,7 @@ def index():
 @app.route("/coffee", methods=['GET', 'POST'])
 @requires_auth
 def start_coffee():
-    coffee_maker.makeCoffee(12)
+    coffee_maker.makeCoffee(ozCoffee)
 
 @app.route("/killall", methods=['GET', 'POST'])
 @requires_auth
