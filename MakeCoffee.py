@@ -54,7 +54,7 @@ html = """
 </head>
 <body>
 <font size = 16>
-    <input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16"> Oz of coffee<br>
+    I want to make <br> <input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16"> Oz of coffee<br>
     <input id="coffeebutton" value="Start Coffee" type="submit">
     <input id="stopbutton" value="Stop Coffee" type="submit">
 <font>
