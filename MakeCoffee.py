@@ -18,7 +18,7 @@ html = """
        <style type="text/css">
                input#stopbutton {
                        width: 250px;
-                       height: 25px;
+                       height: 50px;
                }
        </style>
 <title>Coffee controller</title>
