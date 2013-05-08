@@ -15,6 +15,12 @@ html = """
 <!DOCTYPE html>
 <html>
 <head>
+       <style type="text/css">
+               input#stopbutton {
+                       width: 250px;
+                       height: 25px;
+               }
+       </style>
 <title>Coffee controller</title>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script>
@@ -36,7 +42,7 @@ html = """
 <font size = 16>
     <input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16"> Oz of coffee<br>
     <input id="coffeebutton" value="Start Coffee" type="submit">
-    <input id="stopbutton" size=40 value="Stop Coffee" type="submit">
+    <input id="stopbutton" value="Stop Coffee" type="submit">
 <font>
 </body>
 </html>
