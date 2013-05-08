@@ -28,8 +28,8 @@ html = """
                        font-size: 28px;
                        color: #008000;
                input#coffeeoz {
-                       width: 100px;
-                       height: 10px;
+                       width: 250px;
+                       height: 100px;
                        font-size: 28px;
                }
                }
