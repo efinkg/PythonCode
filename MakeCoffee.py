@@ -18,15 +18,15 @@ html = """
        <style type="text/css">
                input#stopbutton {
                        width: 250px;
-                       height: 50px;
+                       height: 100px;
                }
                input#coffeeoz {
                        width: 250px;
-                       height: 50px;
+                       height: 100px;
                }
                input#coffeebutton {
                        width: 250px;
-                       height: 50px;
+                       height: 100px;
                }
        </style>
 <title>Coffee controller</title>
