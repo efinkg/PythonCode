@@ -8,8 +8,9 @@ KETTLE = 18
 SOLENOID = 17
 GRINDER = 27
 PUMP = 22
+ozCoffee
 
-class CoffeeMakerSingleton:
+class CoffeeMaker:
     _instance = None
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -28,7 +29,7 @@ class CoffeeMakerSingleton:
         threading.Timer(wait, GPIO.output, [gpio, GPIO.HIGH]).start()
         threading.Timer(wait + durration, GPIO.output, [gpio, GPIO.LOW]).start()
 
-    def is_it_hot(self):
+    def is_it_hot(ozCoffee):
         GPIO.output(KETTLE, GPIO.HIGH)
         TEMP=read_temp()
         if TEMP < 65:
@@ -36,13 +37,13 @@ class CoffeeMakerSingleton:
            threading.Timer(10, self.is_it_hot).start()
         else:
            GPIO.output(KETTLE, GPIO.LOW)
-           self.on_after_wait(0, 30, SOLENOID)
+           self.on_after_wait(0, (30/12)*ozCoffee, SOLENOID)
            threading.Timer(180, SendEmail).start()
 
-    def makeCoffee(self):
+    def makeCoffee(ozCoffee):
         #times in comments are relative to WHEN THIS METHOD IS CALLED
-        self.on_after_wait(0, 42, PUMP) #imediately pump for 42 seconds
-        self.on_after_wait(19, 18, GRINDER) #erm, any reason you do this after heating the water? seems like a waste
+        self.on_after_wait(0, (42/12)*ozCoffee, PUMP) #imediately pump for 42 seconds
+        self.on_after_wait(19, (18/12)*ozCoffee, GRINDER) #erm, any reason you do this after heating the water? seems like a waste
                                            #I mean, It's not on a critical path, so we can start it at any point before
                                            #18 seconds before the water is hot
         threading.Timer(19, self.is_it_hot).start() #start heating after 19 seconds
