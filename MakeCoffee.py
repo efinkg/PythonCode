@@ -30,7 +30,7 @@ html = """
                }
                input#coffeeoz {
                        width: 80px;
-                       height: 40px;
+                       height: 60px;
                        font-size: 28px;
                        text-align: center;
                }
@@ -54,7 +54,7 @@ html = """
 </head>
 <body>
 <font size = 16>
-    <I Want to Make<br> input id="coffeeoz" type="number" name="quantity" min="12" max="30" value="16"> ounces of coffee<br>
+    <input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16"> Oz of coffee<br>
     <input id="coffeebutton" value="Start Coffee" type="submit">
     <input id="stopbutton" value="Stop Coffee" type="submit">
 <font>
