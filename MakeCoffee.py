@@ -4,29 +4,38 @@ import threading
 from coffeetimethreading import CoffeeMaker 
 from functools import wraps
 from flask import request, Response
-
+import json
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.debug = True
 coffee_maker = CoffeeMaker()
 
-html = """
+html = """ 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Coffee controller</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#coffeebutton").click(function(){
+            $.ajax({
+                type: "POST",
+                url: "/coffee",
+                data: {"size": $("#coffeeoz").val()}
+            })
+        });
+        $("#stopbutton").click(function(){
+            $.post('/killall')
+        });
+    });
+</script>
 </head>
 <body>
-    <form method="post" action="/coffee">
-        <INPUT TYPE="button" value="Start Coffee" type="submit">
-    </form>
-    
-    <form method="post" action="/killall">
-        <INPUT TYPE="button" value="Stop Coffee" type="submit">
-    </form>
-    How Much Coffee Would You Like? <INPUT TYPE="text" oz="ozCoffee">
-    </form>
+    <input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16"> Oz of coffee<br>
+    <input id="coffeebutton" value="Start Coffee" type="submit">
+    <input id="stopbutton" value="Stop Coffee" type="submit">
 </body>
 </html>
 """
@@ -58,8 +67,13 @@ def index():
 @app.route("/coffee", methods=['GET', 'POST'])
 @requires_auth
 def start_coffee():
-    coffee_maker.makeCoffee(ozCoffee)
-    print 'I am making you' (ozCoffee) 'ounces of coffee.'
+    size = 12
+    try:
+        size = int(request.form['size'])
+    except:
+        pass # if it isn't an int, or data wasn't sent
+    coffee_maker.makeCoffee(size)
+    print 'I am making you %d ounces of coffee.' % size
 
 @app.route("/killall", methods=['GET', 'POST'])
 @requires_auth
