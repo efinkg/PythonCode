@@ -72,8 +72,8 @@ def start_coffee():
         size = int(request.form['size'])
     except:
         pass # if it isn't an int, or data wasn't sent
-    coffee_maker.makeCoffee(size)
     print 'I am making you %d ounces of coffee.' % size
+    coffee_maker.makeCoffee(size)
 
 @app.route("/killall", methods=['GET', 'POST'])
 @requires_auth

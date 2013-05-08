@@ -31,7 +31,7 @@ class CoffeeMaker:
     def is_it_hot(self):
         GPIO.output(KETTLE, GPIO.HIGH)
         TEMP=read_temp()
-        if TEMP < 65:
+        if TEMP < 67:
            print TEMP
            threading.Timer(10, self.is_it_hot).start()
         else:
