@@ -22,16 +22,16 @@ html = """
                        font-size: 28px;
                        color: #FF0000;
                }
-               input#coffeeoz {
-                       width: 250px;
-                       height: 100px;
-                       font-size: 28px;
-               }
                input#coffeebutton {
                        width: 250px;
                        height: 100px;
                        font-size: 28px;
                        color: #008000;
+               input#coffeeoz {
+                       width: 100px;
+                       height: 40px;
+                       font-size: 28px;
+               }
                }
        </style>
 <title>Coffee controller</title>
