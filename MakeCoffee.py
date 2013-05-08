@@ -25,6 +25,9 @@ html = """
     <form method="post" action="/killall">
         <INPUT TYPE="button" value="Stop Coffee" type="submit">
     </form>
+    <form methods ="post"
+        <INPUT TYPE="text" value="How Much Coffee" type="submit">
+    </form>
 </body>
 </html>
 """
