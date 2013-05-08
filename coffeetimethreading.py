@@ -39,7 +39,7 @@ class CoffeeMaker:
            self.on_after_wait(0, (30/12)*self.ozCoffee, SOLENOID)
            threading.Timer(180, SendEmail).start()
 
-    def makeCoffee(ozCoffee):
+    def makeCoffee(self, ozCoffee):
         self.ozCoffee = ozCoffee
         #times in comments are relative to WHEN THIS METHOD IS CALLED
         self.on_after_wait(0, (42/12)*self.ozCoffee, PUMP) #imediately pump for 42 seconds
