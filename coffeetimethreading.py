@@ -8,7 +8,7 @@ KETTLE = 18
 SOLENOID = 17
 GRINDER = 27
 PUMP = 22
-ozCoffee
+ozCoffee = 0
 
 class CoffeeMaker:
     _instance = None
