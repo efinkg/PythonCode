@@ -9,7 +9,7 @@ from flask import request, Response
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.debug = True
-coffee_maker = CoffeeMakerSingleton()
+coffee_maker = CoffeeMaker()
 
 html = """
 <!DOCTYPE html>
