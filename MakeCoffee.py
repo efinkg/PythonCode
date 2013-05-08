@@ -1,7 +1,7 @@
 from flask import Flask
 import os
 import threading
-from coffeetimethreading import CoffeeMakerSingleton
+from coffeetimethreading import CoffeeMaker 
 from functools import wraps
 from flask import request, Response
 
