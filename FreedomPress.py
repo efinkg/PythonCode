@@ -36,7 +36,6 @@ html = """
                }
        </style>
 <title>Coffee controller</title>
-<background = "http://www.wallpaperzhd.com/wp-content/uploads/2013/01/american-eagle-wallpaper.jpg">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script>
     $(document).ready(function(){
@@ -54,6 +53,7 @@ html = """
 </script>
 </head>
 <body>
+<body background = "http://www.wallpaperzhd.com/wp-content/uploads/2013/01/american-eagle-wallpaper.jpg">
 <font size = 16>
     I want to make <br>&nbsp;<input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16">&nbsp;ounces of coffee<br>
     <input id="coffeebutton" value="Start Coffee" type="submit">
