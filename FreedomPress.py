@@ -53,7 +53,7 @@ html = """
 </script>
 </head>
 <body>
-background = "http://www.wallpaperzhd.com/wp-content/uploads/2013/01/american-eagle-wallpaper.jpg"
+<background = "http://www.wallpaperzhd.com/wp-content/uploads/2013/01/american-eagle-wallpaper.jpg">
 <font size = 16>
     I want to make <br>&nbsp;<input id="coffeeoz" type="number" name="quantity" min="12" max="100" value="16">&nbsp;ounces of coffee<br>
     <input id="coffeebutton" value="Start Coffee" type="submit">
