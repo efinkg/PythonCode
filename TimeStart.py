@@ -55,14 +55,14 @@ html = """
 </html>
 """
 
-def timesince(dt, default="just now"):
+def whenStart(startTime, default="just now"):
     """
     Returns string representing "time since" e.g.
     3 days ago, 5 hours ago etc.
     """
 
     now = datetime.utcnow()
-    diff = now - dt
+    diff = startTime - now
     
     periods = (
         (diff.days / 365, "year", "years"),
@@ -81,8 +81,13 @@ def timesince(dt, default="just now"):
 
     return default
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    return html
+
+@app.route('/starttime', methods=['GET', 'POST'])
+def index():
+    whenStart
     
 
 if __name__ == '__main__':
