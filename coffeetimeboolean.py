@@ -28,6 +28,11 @@ class CoffeeMaker:
         GPIO.setup(SOLENOID, GPIO.OUT)
         GPIO.setup(GRINDER, GPIO.OUT)
         GPIO.setup(PUMP, GPIO.OUT)
+        GPIO.setup(OFFLINE, GPIO.IN)
+
+    def offlineInterface(self):
+        if GPIO.input(OFFLINE) = HIGH:
+            makeCoffee(16)
 
     def on_after_wait(self, wait, durration, gpio, bool):
         bool = True
