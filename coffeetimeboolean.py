@@ -8,6 +8,7 @@ KETTLE = 18
 SOLENOID = 17
 GRINDER = 27
 PUMP = 22
+OFFLINE = 14
 
 kettleOn = False
 solenoidOn = False
