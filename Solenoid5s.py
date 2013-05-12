@@ -9,6 +9,13 @@ SOLENOID = 17
 GRINDER = 27
 PUMP = 22
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(KETTLE, GPIO.OUT)
+GPIO.setup(SOLENOID, GPIO.OUT)
+GPIO.setup(GRINDER, GPIO.OUT)
+GPIO.setup(PUMP, GPIO.OUT)
+
+
 GPIO.output(SOLENOID, GPIO.high)
 time.sleep(5)
-GPIO,output(SOLENOIND, GPIO.low)
+GPIO.output(SOLENOIND, GPIO.low)
