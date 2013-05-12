@@ -16,6 +16,6 @@ GPIO.setup(GRINDER, GPIO.OUT)
 GPIO.setup(PUMP, GPIO.OUT)
 
 
-GPIO.output(SOLENOID, GPIO.HIGH)
+GPIO.output(PUMP, GPIO.HIGH)
 time.sleep(5)
-GPIO.output(SOLENOID, GPIO.LOW)
+GPIO.output(PUMP, GPIO.LOW)
