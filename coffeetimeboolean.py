@@ -29,8 +29,6 @@ class CoffeeMaker:
         GPIO.setup(GRINDER, GPIO.OUT)
         GPIO.setup(PUMP, GPIO.OUT)
 
-    def whichAreOn():   
-
     def on_after_wait(self, wait, durration, gpio, bool):
         bool = True
         threading.Timer(wait, GPIO.output, [gpio, GPIO.HIGH]).start()
