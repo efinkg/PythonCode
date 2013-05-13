@@ -41,8 +41,8 @@ class CoffeeMaker:
         bool = True
         [gpio, GPIO.HIGH]
 
-    def gpioOff(self, gpio, bool):
-        bool = False
+    def gpioOff(self, gpio, boolean):
+        boolean = False
         [gpio, GPIO.LOW]
 
         def on_after_wait(self, wait, durration, gpio):
