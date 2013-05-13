@@ -10,12 +10,14 @@ GRINDER = 27
 PUMP = 22
 OFFLINE = 14
 
-kettleOn = False
-solenoidOn = False
-grinderOn = False
-pumpOn = False
 
 class CoffeeMaker:
+
+    KettleOn = False
+    solenoidOn = False
+    grinderOn = False
+    pumpOn = False
+    
     _instance = None
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -35,11 +37,17 @@ class CoffeeMaker:
         if GPIO.input(OFFLINE) = HIGH:
             makeCoffee(16)
 
-    def on_after_wait(self, wait, durration, gpio, bool):
+    def gpioOn(self, gpio, bool):
         bool = True
-        threading.Timer(wait, GPIO.output, [gpio, GPIO.HIGH]).start()
-        threading.Timer(wait + durration, GPIO.output, [gpio, GPIO.LOW]).start()
+        [gpio, GPIO.HIGH]
+
+    def gpioOff(self, gpio, bool):
         bool = False
+        [gpio, GPIO.LOW]
+
+        def on_after_wait(self, wait, durration, gpio):
+        threading.Timer(wait, GPIO.output, gpioOn(gpio)).start()
+        threading.Timer(wait + durration, GPIO.output, gpioOff(gpio)).start()
 
     def is_it_hot(self):
         kettleOn = True
