@@ -13,11 +13,10 @@ OFFLINE = 14
 
 class CoffeeMaker:
 
-    def booleans(self):
-        self.kettleOn = False
-        self.solenoidOn = False
-        self.grinderOn = False
-        self.pumpOn = False
+    self.kettleOn = False
+    self.solenoidOn = False
+    self.grinderOn = False
+    self.pumpOn = False
  
     _instance = None
     def __new__(cls, *args, **kwargs):
