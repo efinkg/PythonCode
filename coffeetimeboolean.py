@@ -13,11 +13,12 @@ OFFLINE = 14
 
 class CoffeeMaker:
 
-    KettleOn = False
-    solenoidOn = False
-    grinderOn = False
-    pumpOn = False
-    
+    def booleans(self):
+        self.kettleOn = False
+        self.solenoidOn = False
+        self.grinderOn = False
+        self.pumpOn = False
+ 
     _instance = None
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -37,8 +38,8 @@ class CoffeeMaker:
         if GPIO.input(OFFLINE) = HIGH:
             makeCoffee(16)
 
-    def gpioOn(self, gpio, bool):
-        bool = True
+    def gpioOn(self, gpio, boolean):
+        boolean = True
         [gpio, GPIO.HIGH]
 
     def gpioOff(self, gpio, boolean):
