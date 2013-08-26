@@ -13,10 +13,11 @@ OFFLINE = 14
 
 class CoffeeMaker:
 
-    self.kettleOn = False
-    self.solenoidOn = False
-    self.grinderOn = False
-    self.pumpOn = False
+    status = {KETTLE: False,
+            SOLENOID: False,
+            GRINDER: False,
+            PUMP: False,
+            'running': False}
  
     _instance = None
     def __new__(cls, *args, **kwargs):
@@ -37,32 +38,41 @@ class CoffeeMaker:
         if GPIO.input(OFFLINE) = HIGH:
             makeCoffee(16)
 
-    def gpioOn(self, gpio, boolean):
-        boolean = True
-        [gpio, GPIO.HIGH]
+    def gpioOn(self, gpio):
+        GPIO.output(gpio, GPIO.HIGH)
+        self.status[gpio] = True
 
-    def gpioOff(self, gpio, boolean):
-        boolean = False
-        [gpio, GPIO.LOW]
+    def gpioOff(self, gpio):
+        GPIO.output(gpio, GPIO.LOW)
+        self.status[gpio] = False
 
-        def on_after_wait(self, wait, durration, gpio):
-        threading.Timer(wait, GPIO.output, gpioOn(gpio)).start()
-        threading.Timer(wait + durration, GPIO.output, gpioOff(gpio)).start()
+    def on_after_wait(self, wait, durration, gpio):
+        threading.Timer(wait, self.gpioOn, [gpio]).start()
+        threading.Timer(wait + durration, self.gpioOff, [gpio]).start()
+
+    def all_done(self):
+        self.status['running'] = False
+        SendEmail()
 
     def is_it_hot(self):
-        kettleOn = True
         GPIO.output(KETTLE, GPIO.HIGH)
+        self.status[KETTLE] = True
         TEMP=read_temp()
         if TEMP < 67:
            print TEMP
            threading.Timer(10, self.is_it_hot).start()
         else:
            GPIO.output(KETTLE, GPIO.LOW)
-           kettleOn = False
-           self.on_after_wait(0, (12/5)*self.ozCoffee, SOLENOID, solenoidOn)
-           threading.Timer(180, SendEmail).start()
+           self.status[KETTLE] = False
+           self.on_after_wait(0, (12/5)*self.ozCoffee, SOLENOID)
+           threading.Timer(180, self.all_done).start()
 
     def makeCoffee(self, ozCoffee):
+        for key in self.status:
+            if self.status[key]:
+                print 'already running'
+                return
+        self.status['running'] = True
         self.ozCoffee = ozCoffee
         #times in comments are relative to WHEN THIS METHOD IS CALLED
         self.on_after_wait(0, (17/5)*self.ozCoffee, PUMP, pumpOn) #imediately pump for 42 seconds
@@ -86,3 +96,4 @@ class CoffeeMaker:
     def force_stop(self):
         self.end_timers()
         self.pins_off()
+        self.status['running'] = False
