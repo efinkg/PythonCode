@@ -5,6 +5,9 @@ from coffeetimethreading import CoffeeMaker
 from functools import wraps
 from flask import request, Response
 import json
+from CoffeeEmail import SendSmallStartEmail
+from CoffeeEmail import SendLargeStartEmail
+from CoffeeEmail import SendCoffeeCancelledEmail
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -97,11 +100,28 @@ def start_coffee():
     print 'I am making you %d ounces of coffee.' % size
     coffee_maker.makeCoffee(size)
 
+@app.route("/coffeelarge", methods=['GET', 'POST'])
+@requires_auth
+def start_large_coffee():
+    size = 36
+    SendLargeStartEmail()
+    #print 'I am making you %d ounces of coffee.' % size
+    coffee_maker.makeCoffee(size)
+
+@app.route("/coffeesmall", methods=['GET', 'POST'])
+@requires_auth
+def start_small_coffee():
+    size = 14
+    SendSmallStartEmail()
+    #print 'I am making you %d ounces of coffee.' % size
+    coffee_maker.makeCoffee(size)
+
 @app.route("/killall", methods=['GET', 'POST'])
 @requires_auth
 def killall():
+    SendCoffeeCancelledEmail()
     coffee_maker.force_stop()
-    print 'done force stopping'
+    #print 'done force stopping'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
