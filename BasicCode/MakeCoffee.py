@@ -89,7 +89,7 @@ def index():
 @app.route("/coffee", methods=['GET', 'POST'])
 @requires_auth
 def start_coffee():
-    size = 12
+    size = 16
     try:
         size = int(request.form['size'])
     except:
