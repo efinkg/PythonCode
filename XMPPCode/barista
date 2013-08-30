@@ -15,21 +15,21 @@ def do_command(method):
     #logs into the MakeCoffee web server on the local network
     os.system('curl -k -u %s:%s %s/%s' % (username, password, url, method))
  
-#print sys.argv
+print sys.argv
  
-if len(sys.argv) >1 and sys.argv[0] == '/etc/jabberd/cmds/barista':
+if len(sys.argv) >1 and sys.argv[0] == 'barista':#'/etc/jabberd/cmds/barista':
     #Change this to the location/name of the desired first word of the jabber message
     #'barista make/start a small/large coffee"
-    if sys.argv[1] == 'start' or 'make': #natural systax
-        if len(sys.argv) > 4 and sys.argv[3] == 'large':
+    if sys.argv[1] == 'start' or sys.argv[1] == 'make': #natural systax
+        if len(sys.argv) > 4 and sys.argv[3] == 'large' or sys.argv[3] == 'pot': #natural systax
             do_command('coffeelarge')
             #SendLargeStartEmail()
-            #print '/echo /push Starting Large Coffee'
+            print 'Starting Large Coffee'
             
-        if len(sys.argv) > 4 and sys.argv[3] == 'small':
+        if len(sys.argv) > 4 and sys.argv[3] == 'small' or sys.argv[3] == 'cup': #natural systax
             do_command('coffeesmall')
             #SendSmallStartEmail()
-            #print '/echo /push Starting Small Coffee'
+            print 'Starting Small Coffee'
 
         #if len(sys.argv) == 4 and sys.argv[4] == 'coffee'
         #    do_command('coffee')

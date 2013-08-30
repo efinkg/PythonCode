@@ -1,7 +1,7 @@
 from flask import Flask
 import os
 import threading
-from coffeetimethreading import CoffeeMaker 
+#from coffeetimethreading import CoffeeMaker 
 from functools import wraps
 from flask import request, Response
 import json
@@ -12,7 +12,7 @@ from CoffeeEmail import SendCoffeeCancelledEmail
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.debug = True
-coffee_maker = CoffeeMaker()
+#coffee_maker = CoffeeMaker()
 
 html = """ 
 <!DOCTYPE html>
@@ -98,15 +98,17 @@ def start_coffee():
     except:
         pass # if it isn't an int, or data wasn't sent
     print 'I am making you %d ounces of coffee.' % size
-    coffee_maker.makeCoffee(size)
+    return ""
+    #coffee_maker.makeCoffee(size)
 
 @app.route("/coffeelarge", methods=['GET', 'POST'])
 @requires_auth
 def start_large_coffee():
-    size = 34
+    size = 36
     SendLargeStartEmail()
+    return ""
     #print 'I am making you %d ounces of coffee.' % size
-    coffee_maker.makeCoffee(size)
+    #coffee_maker.makeCoffee(size)
 
 @app.route("/coffeesmall", methods=['GET', 'POST'])
 @requires_auth
@@ -114,13 +116,16 @@ def start_small_coffee():
     size = 14
     SendSmallStartEmail()
     #print 'I am making you %d ounces of coffee.' % size
-    coffee_maker.makeCoffee(size)
+    #coffee_maker.makeCoffee(size)
+    return ""
+
 
 @app.route("/killall", methods=['GET', 'POST'])
 @requires_auth
 def killall():
     SendCoffeeCancelledEmail()
-    coffee_maker.force_stop()
+    return ""
+    #coffee_maker.force_stop()
     #print 'done force stopping'
 
 if __name__ == '__main__':

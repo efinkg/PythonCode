@@ -59,7 +59,7 @@ class CoffeeMaker(object):
 
     def finish(self):
         self.active_timers = []
-        SendEmail()
+        SendCoffeeDoneEmail()
 
     def pins_off(self):
         for pin in [KETTLE, SOLENOID, GRINDER, PUMP]:
