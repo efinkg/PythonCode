@@ -1,0 +1,45 @@
+#!/usr/bin/python
+ 
+import sys
+import os
+from CoffeeEmail import SendSmallStartEmail
+from CoffeeEmail import SendLargeStartEmail
+from CoffeeEmail import SendCoffeeCancelledEmail
+ 
+username = 'admin'
+password = 'secret'
+ 
+url = 'http://localhost:5000'
+ 
+def do_command(method):
+    #logs into the MakeCoffee web server on the local network
+    os.system('curl -k -u %s:%s %s/%s' % (username, password, url, method))
+ 
+#print sys.argv
+ 
+if len(sys.argv) >1 and sys.argv[0] == '/etc/jabberd/cmds/barista':
+    #Change this to the location/name of the desired first word of the jabber message
+    #'barista make/start a small/large coffee"
+    if sys.argv[1] == 'start' or 'make': #natural systax
+        if len(sys.argv) > 4 and sys.argv[3] == 'large' or 'pot': #natural systax
+            do_command('coffeepot')
+            #SendLargeStartEmail()
+            #print '/echo /push Starting Large Coffee'
+            
+        if len(sys.argv) > 4 and sys.argv[3] == 'small' or 'cup': #natural systax
+            do_command('coffeesmall')
+            #SendSmallStartEmail()
+            #print '/echo /push Starting Small Coffee'
+
+        #if len(sys.argv) == 4 and sys.argv[4] == 'coffee'
+        #    do_command('coffee')
+        #    print '/echo /push Starting Coffee'
+ 
+    if sys.argv[1] == 'stop':
+        do_command('killall')
+        #SendCoffeeCancelledEmail()
+        #print '/echo /push Stopping Coffee'
+        
+#if len(sys.argv) == 1 and sys.argv[1] == 'stop':
+#    do_command('killall')
+#    print '/echo /push Stopping Coffee'
